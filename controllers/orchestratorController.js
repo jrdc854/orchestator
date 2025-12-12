@@ -35,7 +35,7 @@ exports.runPredictionFlow = async (req, res) => {
         const { dataId, features, featureCount } = acquireData;
 
         if (featureCount !== 7) {
-            return res.status(500).json({ error: 'Acquire returned invelid feature count.' });
+            return res.status(500).json({ error: 'Acquire returned invalid feature count.' });
         }
     } catch (error) {
         console.error('Network Error connecting to Acquire:', error.message);
@@ -59,7 +59,7 @@ exports.runPredictionFlow = async (req, res) => {
         const predictResponse = await fetch(`${PREDICT_URL}/predict`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(predictionBody)
+            body: JSON.stringify(predictBody)
         });
 
         if (!predictResponse.ok) {
