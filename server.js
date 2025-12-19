@@ -13,9 +13,6 @@ const PREDICT_URL = process.env.PREDICT_URL || "http://predict:3002";
 const app = express();
 app.use(express.json());
 
-// ------------------------------------------------------------------
-// --- FUNCIÓN DE INICIALIZACIÓN (Simulada para el Orchestrator) ---
-// ------------------------------------------------------------------
 
 // comprobar dependencias
 async function initDependencies() {
