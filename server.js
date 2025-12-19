@@ -17,20 +17,20 @@ app.use(express.json());
 // --- FUNCIÓN DE INICIALIZACIÓN (Simulada para el Orchestrator) ---
 // ------------------------------------------------------------------
 
-// Aquí el Orchestrator podría chequear que sus dependencias están listas.
+// comprobar dependencias
 async function initDependencies() {
   console.log('[ORCHESTRATOR] Chequeando dependencias...');
   
-  // 1. Chequeo de Acquire
+  // acquire
   const acquireHealth = await fetch(`${ACQUIRE_URL}/health`).catch(() => null);
   if (!acquireHealth || acquireHealth.status !== 200) {
     console.error(`[ORCHESTRATOR] Acquire no está listo o no responde en ${ACQUIRE_URL}/health`);
-    // En un entorno de producción, intentaríamos de nuevo o lanzaríamos un error fatal.
+   
   } else {
     console.log('[ORCHESTRATOR] Acquire OK.');
   }
   
-  // 2. Chequeo de Predict
+  // predict
   const predictHealth = await fetch(`${PREDICT_URL}/health`).catch(() => null);
   if (!predictHealth || predictHealth.status !== 200) {
     console.error(`[ORCHESTRATOR] Predict no está listo o no responde en ${PREDICT_URL}/health`);
@@ -38,7 +38,7 @@ async function initDependencies() {
     console.log('[ORCHESTRATOR] Predict OK.');
   }
 
-  // Devolvemos las URLs para asegurar que el server las conoce
+  
   return { ACQUIRE_URL, PREDICT_URL };
 }
 

@@ -6,18 +6,16 @@ const fetch = require('node-fetch');
 const ACQUIRE_URL = process.env.ACQUIRE_URL || "http://acquire:3001";
 const PREDICT_URL = process.env.PREDICT_URL || "http://predict:3002";
 
-//health
+
 exports.getHealth = (req, res) => {
-    //contrato
     res.status(200).json({ status: "ok", service: "orchestrator" });
 
 };
 
-// /run
 exports.runPredictionFlow = async (req, res) => {
     let acquireData;
 
-    //fase 1: llamada a acquire
+    //llamada a acquire
     try {
         console.log('[CONTROLLER] 1. Llamando a ACQUIRE...');
         const acquireResponse = await fetch(`${ACQUIRE_URL}/data`, {
@@ -42,7 +40,7 @@ exports.runPredictionFlow = async (req, res) => {
         return res.status(504).json({ error: 'Gateway Timeout: Cannot reach Acquire service.' });
     }
 
-    //FASE 2: llamada a predict
+    //llamada a predict
     try {
         console.log('[CONTROLLER] 2. Llamando a PREDICT...');
 
@@ -69,7 +67,7 @@ exports.runPredictionFlow = async (req, res) => {
 
         const predictData = await predictResponse.json();
 
-        //FASE 3: cumplir el contrato de orchestrator
+        //cumplir el contrato de orchestrator
         console.log('[CONTROLLER] 3. Flujo complretado con éxito.');
         return res.status(200).json({
             dataId: acquireData.dataId,
