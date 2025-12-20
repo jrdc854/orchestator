@@ -4,7 +4,6 @@ const express = require("express");
 const fetch = require('node-fetch'); //para las llamedas internas
 const orchestratorRoutes = require("./routes/orchestratorRoutes");
 
-//variables de entorno y conf
 const PORT = process.env.PORT || 8080;
 const ACQUIRE_URL = process.env.ACQUIRE_URL || "http://acquire:3001";
 const PREDICT_URL = process.env.PREDICT_URL || "http://predict:3002";
@@ -14,7 +13,6 @@ const app = express();
 app.use(express.json());
 
 
-// comprobar dependencias
 async function initDependencies() {
   console.log('[ORCHESTRATOR] Chequeando dependencias...');
   
@@ -40,11 +38,8 @@ async function initDependencies() {
 }
 
 
-
-//CONFIGURACIÖN DE RUTAS
 app.use("/", orchestratorRoutes);
 
-//arranque del servidor e inicialización de dependencias
 app.listen(PORT, async () => {
     const serverUrl = `http://localhost:${PORT}`;
     console.log(`[ORCHESTRATOR] Servicio escuchando en ${serverUrl}`);

@@ -67,7 +67,6 @@ exports.runPredictionFlow = async (req, res) => {
 
         const predictData = await predictResponse.json();
 
-        //cumplir el contrato de orchestrator
         console.log('[CONTROLLER] 3. Flujo complretado con éxito.');
         return res.status(200).json({
             dataId: acquireData.dataId,
